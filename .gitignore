@@ -1,14 +1,5 @@
 # Data files
 *.mat
-*.npz
-*.npy
-*.pkl
-
-# Model weights
-*.pth
-
-# Visualizations
-*.png
 
 # Python
 __pycache__/
