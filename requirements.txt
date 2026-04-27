@@ -1,6 +1,6 @@
-numpy
-scipy
-matplotlib
-torch
-scikit-learn
-joblib
+torch>=1.12.0
+numpy>=1.23.0
+scipy>=1.9.0
+matplotlib>=3.5.0
+scikit-learn>=1.1.0
+joblib>=1.1.0

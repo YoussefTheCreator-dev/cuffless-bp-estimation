@@ -148,7 +148,11 @@ def train():
             torch.save(model.state_dict(), "bp_model_best.pth")
 
     print("\nEvaluating best checkpoint on held-out test set...")
-    model.load_state_dict(torch.load("bp_model_best.pth", weights_only=True))
+    try:
+        state = torch.load("bp_model_best.pth", map_location=device, weights_only=True)
+    except TypeError:
+        state = torch.load("bp_model_best.pth", map_location=device)
+    model.load_state_dict(state)
     model.eval()
 
     preds_all, labels_all = [], []
