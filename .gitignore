@@ -1,0 +1,22 @@
+# Data files
+*.mat
+*.npz
+*.npy
+*.pkl
+
+# Model weights
+*.pth
+
+# Visualizations
+*.png
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+env/
+venv/
+.env
+.venv
