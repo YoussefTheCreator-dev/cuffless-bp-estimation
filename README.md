@@ -123,14 +123,17 @@ Our model achieves ~97% of SBP predictions within 5 mmHg.
 # 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. (Optional) Visualise raw signals
+# 2. Train and evaluate  (processed_data.npz is already included)
+python train_model.py         # outputs bp_model.pth, y_scaler.pkl, bp_results.png
+```
+
+**To re-run from raw data** (requires downloading `part_1.mat` from Kaggle):
+```bash
+# Visualise raw signals
 python load_data.py --mat_path part_1.mat
 
-# 3. Preprocess the dataset
-python preprocess.py          # reads part_1.mat → writes processed_data.npz
-
-# 4. Train and evaluate
-python train_model.py         # outputs bp_model.pth, y_scaler.pkl, bp_results.png
+# Re-run preprocessing
+python preprocess.py --mat_path part_1.mat
 ```
 
 ---

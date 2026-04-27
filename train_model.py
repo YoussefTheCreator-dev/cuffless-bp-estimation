@@ -73,6 +73,10 @@ def plot_results(preds: np.ndarray, labels: np.ndarray, out_path: str = "bp_resu
 
 
 def train():
+    # Seed for reproducibility
+    torch.manual_seed(42)
+    np.random.seed(42)
+
     print("=" * 70)
     print("Wearable-Enabled AI for Cuffless Blood Pressure Estimation")
     print("Future17 SDG Challenge 2025 | Ekak Innovations | Team 04")
