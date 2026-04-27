@@ -1,8 +1,17 @@
+import argparse
 import scipy.io
 import matplotlib.pyplot as plt
-import numpy as np
 
-def load_and_plot(mat_path):
+
+def load_and_plot(mat_path: str, output_image_path: str = "raw_data_check.png") -> None:
+    """
+    Loads a .mat file containing PPG, ABP, and ECG signals, prints basic metadata,
+    and plots the first 500 samples of the first patient.
+    
+    Args:
+        mat_path (str): Path to the .mat dataset.
+        output_image_path (str): Path to save the resulting plot image.
+    """
     print(f"Loading data from {mat_path}...")
     mat = scipy.io.loadmat(mat_path)
     
@@ -21,23 +30,32 @@ def load_and_plot(mat_path):
     
     # Plot first 500 samples (4 seconds at 125Hz)
     plt.figure(figsize=(12, 6))
+    
     plt.subplot(3, 1, 1)
     plt.plot(ppg[:500])
     plt.title("Raw PPG Signal")
+    plt.ylabel("Amplitude")
     
     plt.subplot(3, 1, 2)
-    plt.plot(abp[:500])
+    plt.plot(abp[:500], color='orange')
     plt.title("ABP Signal (Blood Pressure)")
+    plt.ylabel("mmHg")
     
     plt.subplot(3, 1, 3)
-    plt.plot(ecg[:500])
+    plt.plot(ecg[:500], color='green')
     plt.title("ECG Signal")
+    plt.ylabel("Amplitude")
+    plt.xlabel("Samples (at 125Hz)")
     
     plt.tight_layout()
-    plt.savefig(r'raw_data_check.png')
-    print("Plot saved as raw_data_check.png in the project folder.")
+    plt.savefig(output_image_path)
+    print(f"Plot saved as {output_image_path} in the project folder.")
     plt.show()
 
 if __name__ == "__main__":
-    load_and_plot(r'part_1.mat')
-
+    parser = argparse.ArgumentParser(description="Load and plot raw physiological signals from .mat file.")
+    parser.add_argument("--mat_path", type=str, default="part_1.mat", help="Path to the raw .mat data file.")
+    parser.add_argument("--output_image", type=str, default="raw_data_check.png", help="Path to save the generated plot.")
+    args = parser.parse_args()
+    
+    load_and_plot(args.mat_path, args.output_image)
