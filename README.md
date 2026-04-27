@@ -108,6 +108,7 @@ Our model achieves ~97% of SBP predictions within 5 mmHg.
 ├── load_data.py          # Visualise raw PPG / ABP / ECG from .mat file
 ├── preprocess.py         # Windowing, filtering, label extraction → processed_data.npz
 ├── train_model.py        # BiLSTM training + BHS evaluation + results plot
+├── predict.py            # Run inference with the pre-trained model (no retraining needed)
 ├── requirements.txt      # Python dependencies
 ├── bp_model_best.pth     # Best model checkpoint (lowest validation loss)
 ├── bp_model.pth          # Final model weights
@@ -123,17 +124,18 @@ Our model achieves ~97% of SBP predictions within 5 mmHg.
 # 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. Train and evaluate  (processed_data.npz is already included)
+# 2a. Run inference with the pre-trained model (fastest — no retraining needed)
+python predict.py             # demo on 5 samples from processed_data.npz
+python predict.py --n_samples 20
+
+# 2b. Or retrain from scratch (processed_data.npz is already included)
 python train_model.py         # outputs bp_model.pth, y_scaler.pkl, bp_results.png
 ```
 
 **To re-run from raw data** (requires downloading `part_1.mat` from Kaggle):
 ```bash
-# Visualise raw signals
-python load_data.py --mat_path part_1.mat
-
-# Re-run preprocessing
-python preprocess.py --mat_path part_1.mat
+python load_data.py --mat_path part_1.mat   # visualise raw signals
+python preprocess.py --mat_path part_1.mat  # re-run preprocessing
 ```
 
 ---
